@@ -1,6 +1,6 @@
-# mkdir -p /usr/local/nagiosxi/var/certs
+mkdir -p /usr/local/nagiosxi/var/certs
 
-# openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 -keyout /usr/local/nagiosxi/var/certs/nagiosxi.key \
 -out /usr/local/nagiosxi/var/certs/nagiosxi.crt
 
@@ -12,7 +12,7 @@ Organizational Unit Name (eg, section) []:Trainer
 Common Name (eg, your name or your server's hostname) []:server
 Email Address []:
 
-# chmod 600 /usr/local/nagiosxi/var/certs/nagiosxi.key
-# chmod 644 /usr/local/nagiosxi/var/certs/nagiosxi.crt
+chmod 600 /usr/local/nagiosxi/var/certs/nagiosxi.key
+chmod 644 /usr/local/nagiosxi/var/certs/nagiosxi.crt
 
-# systemctl restart httpd
+systemctl restart httpd
