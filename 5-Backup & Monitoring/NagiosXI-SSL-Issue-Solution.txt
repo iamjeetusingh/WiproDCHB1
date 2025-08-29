@@ -16,3 +16,7 @@ chmod 600 /usr/local/nagiosxi/var/certs/nagiosxi.key
 chmod 644 /usr/local/nagiosxi/var/certs/nagiosxi.crt
 
 systemctl restart httpd
+
+
+NCPA link: https://www.nagios.org/projects/ncpa/#download-ncpa-section
+
