@@ -22,7 +22,7 @@
 # cd /tmp
 
 6.	Download the Apache tomcat linux package using “wget” command
-# wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.43/bin/apache-tomcat-10.1.43.tar.gz
+# wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.44/bin/apache-tomcat-10.1.44.tar.gz
 
 7.	Extract this ‘gz’ file and move the extracted data (files and folder) to /opt/tomcat
 # tar -xzvf apache-tomcat-10.1.43.tar.gz -C /opt/tomcat --strip-components=1
