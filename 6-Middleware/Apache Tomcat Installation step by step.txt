@@ -1,0 +1,83 @@
+1.	Ping to google.com to check internet connectivity:
+# ping google.com
+
+2.	Install the Java package:
+# yum install java-17-openjdk -y                          //or
+# dnf install java-17-openjdk -y
+# yum install -y java-17-openjdk-devel java-11-openjdk-devel
+
+3.	Create a new user (tomcat)
+# useradd -r -m -U -d /opt/tomcat -s /bin/false tomcat
+    -r creating a system user
+    -m create the home directory of the user.
+    -U create a user group (tomcat)
+    -d /opt/tomcat sets home directory
+    -s /bin/false  non-login shell
+    -tomcat username to be created
+
+4.	Verify, if user is created
+# cat /etc/passwd | grep tomcat
+
+5.	Change the location to /tmp
+# cd /tmp
+
+6.	Download the Apache tomcat linux package using “wget” command
+# wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.43/bin/apache-tomcat-10.1.43.tar.gz
+
+7.	Extract this ‘gz’ file and move the extracted data (files and folder) to /opt/tomcat
+# tar -xzvf apache-tomcat-10.1.43.tar.gz -C /opt/tomcat --strip-components=1
+
+8.	Change the permissions of newly copied files
+# chown -R tomcat: /opt/tomcat
+
+9.	Make all scripts executable
+# sh -c 'chmod +x /opt/tomcat/bin/*.sh'
+
+10.	Create a systemd service file.
+# vim /etc/systemd/system/tomcat.service     & paste the below code inside this file
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=network.target
+
+[Service]
+Type=forking
+
+User=tomcat
+Group=tomcat
+
+Environment="JAVA_HOME=/usr/lib/jvm/java-17-openjdk"
+Environment="CATALINA_PID=/opt/tomcat/temp/tomcat.pid"
+Environment="CATALINA_HOME=/opt/tomcat"
+Environment="CATALINA_BASE=/opt/tomcat"
+
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/opt/tomcat/bin/shutdown.sh
+
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+:wq!
+
+11.	Reload daemon (service) and start Tomcat
+# systemctl daemon-reexec
+# systemctl daemon-reload
+# systemctl enable --now tomcat
+
+12.	Check the tomcat service status.
+# systemctl status tomcat
+
+13.	If firewall is ON
+# sudo firewall-cmd --permanent --add-port=8080/tcp
+# sudo firewall-cmd –reload
+
+14.	Test the Apache tomcat page on the browser.
+Go to firefox web browser  http://<ip-address>:8080
+
+15.	Enable Tomcat web management interface  Edit a file
+# vim /opt/tomcat/conf/tomcat-users.xml
+<role rolename="manager-gui"/>
+<role rolename="admin-gui"/>
+<user username="admin" password="admin123" roles="manager-gui,admin-gui"/>
+:wq!
+
